@@ -1,6 +1,7 @@
 // Importing module
 const express = require('express');
 const axios = require('axios');
+const cors = require("cors");
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -12,16 +13,21 @@ const API_KEY = process.env.API_KEY;
 const TARGET_URL = process.env.TARGET_URL;
 
 app.use(express.json());
+app.use(cors());
 
 // Endpoint to add the API key to URL
-app.use('/proxy/', async (req,res) => {
+app.use('/proxy', async (req,res) => {
     try{
-
+        
         const path = req.url;
-        const target = `${TARGET_URL}/${path}`;
+        const target = `${TARGET_URL}${path}`;
+
+        console.log(target);
 
         const separator = target.includes("?") ? "&" : "?";
         const finalUrl = `${target}${separator}key=${API_KEY}`;
+
+        console.log(finalUrl);
 
         const response = await axios.get(finalUrl);
         const result = response.data;
