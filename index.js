@@ -1,6 +1,3 @@
-//Default city
-// const dropDownSelection = "Kuala Lumpur";
-
 // Define all the fields to be populated with info from API.
 // -- 1.0 <div id="container-city-dropdown"> -- //
 const dropDownSelection = document.getElementById("citys");
@@ -8,12 +5,9 @@ const dropDownSelection = document.getElementById("citys");
 // -- 2.0 <div id="container-current"> -- //
 // ----  2.1 <div id="container-location-time"> ---- // 
 let [city, time, date]  = document.querySelector("#container-location-time").children 
-// let city  = document.querySelector("h1"); 
-// let time = document.querySelector("#container-location-time h2"); 
-// let date = document.querySelector("#container-location-time h3"); 
 
 // ---- 2.2 <div id="container-weatherCurrent"> ---- // 
-let [weather, humidity, wind]  = document.querySelector("#container-weatherCurrent").children 
+let [weather, weatherimg, humidity, wind]  = document.querySelector("#container-weatherCurrent").children 
 
 // -- 3.0 <div id="container-forecast"> -- //
 let forecastCards = document.querySelectorAll(".forecast-cards")
@@ -29,8 +23,19 @@ dropDownSelection.addEventListener("change", () => {
 
 // Function to get weather
 async function getWeather(citySelected){
+  const loader = document.getElementById("loading");
+  const currentContainer = document.getElementById("container-current");
+  const forecastContainer = document.getElementById("container-forecast");
+
+
+  loader.style.display = "block"; // show loading
+  currentContainer.style.display = "none"; 
+  forecastContainer.style.display = "none"; 
+
+  document.body.style.pointerEvents = "none"; // prevent user actions during load (optional)
+
   try{
-    const res = await fetch(`http://localhost:3000/proxy/forecast.json?q=${citySelected}&days=7&aqi=no&alerts=no`);
+    const res = await fetch(`https://basic-weather-app-gtst.onrender.com/proxy/forecast.json?q=${citySelected}&days=7&aqi=no&alerts=no`);
 
     if (!res.ok) {
       throw new Error(`HTTP error! Status: ${res.status}`);
@@ -38,23 +43,36 @@ async function getWeather(citySelected){
 
     const data = await res.json();
 
+    // hide loader after data fetched
+    loader.style.display = "none";
+    currentContainer.style.display = "flex"; 
+    forecastContainer.style.display = "flex"; 
+
+    document.body.style.pointerEvents = "auto";
+
       // Current Weather
     const [dateStr, timeStr] = data.location.localtime.split(" ");
+    const finalDate = getDaynDate(dateStr);
 
     city.innerHTML = data.location.name;
     time.innerHTML = timeStr;
-    date.innerHTML = dateStr;
+    date.innerHTML = finalDate;
 
-    weather.innerHTML = data.current.condition.text
-    humidity.innerHTML = data.current.humidity + " %"
-    wind.innerHTML = data.current.wind_kph + " km/h"
+    weather.innerHTML = data.current.condition.text;
+    weatherimg.src = "https:" + data.current.condition.icon;
+
+    humidity.innerHTML = "Humidity : " + data.current.humidity + " %"
+    wind.innerHTML =  "Wind Speed : " + data.current.wind_kph + " km/h"
 
     //  Forecast Weather
    const forecastWeather = data.forecast.forecastday
 
     for (let i = 0; i < forecastCards.length; i++){
       forecastCards[i].querySelector("h2").innerHTML = forecastWeather[i].date
-      forecastCards[i].querySelector("h3").innerHTML = forecastWeather[i].day.avgtemp_c + " °C"
+      forecastCards[i].querySelector("img").src = "https:" + forecastWeather[i].day.condition.icon
+      let dayWeather = forecastCards[i].querySelectorAll("h3")
+      dayWeather[0].innerHTML = forecastWeather[i].day.condition.text
+      dayWeather[1].innerHTML = forecastWeather[i].day.avgtemp_c + " °C"
     }
 
   }catch(err){
@@ -62,36 +80,32 @@ async function getWeather(citySelected){
   }
 }
 
+function getDaynDate(dateStr){
+    let d = new Date(dateStr);
+    let dayStr = d.getDay();
 
-// fetch("http://localhost/:3000/proxy/forecast.json?q=${citySelectedDropdown}&days=7&aqi=no&alerts=no")
-//   .then(response => {
-//     if (!response.ok) {
-//       throw new Error("Network response was not ok");
-//     }
-//     return response.json();
-//   })
-//   .then(data => {
+    switch (dayStr){
+      case 0:
+        dayStr = "Sunday";
+        break;
+      case 1:
+        dayStr = "Monday";
+        break;
+      case 2:
+        dayStr = "Tuesday";
+        break;
+      case 3:
+        dayStr = "Wednesday";
+        break;
+      case 4:
+        dayStr = "Thursday";
+        break;
+      case 5:
+        dayStr = "Friday";
+        break;
+      default:
+        dayStr = "Saturday";
+    }
 
-      // Current Weather
-//     const res_datetime = data.location.localtime.split(" ");
-
-//     city.innerHTML = data.location.name;
-//     time.innerHTML = res_datetime[1];
-//     date.innerHTML = res_datetime[0];
-
-//     weather.innerHTML = data.current.condition.text
-//     humidity.innerHTML = data.current.humidity + " %"
-//     wind.innerHTML = data.current.wind_kph + " km/h"
-
-      // Forecast Weather
-//    const forecastWeather = data.forecast.forecastday
-
-    // for (let i = 0; i < forecastCards.length; i++){
-    //   forecastCards[i].querySelector("h2").innerHTML = forecastWeather[i].date
-    //   forecastCards[i].querySelector("h3").innerHTML = forecastWeather[i].avgtemp_c
-    // }
-
-//   })
-//   .catch(error => {
-//     console.error("Fetch error:", error);
-//   });
+    return (`${dayStr}, ${dateStr}`);
+}

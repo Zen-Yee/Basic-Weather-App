@@ -5,12 +5,27 @@
 }
 
 body {
-  background-color: orange;
+  background-color: #305669;
   height: 100dvh;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+img{
+  height:60px;
+  width: 60px;
+}
+
+h1{
+  font-size: 3rem;
+}
+
+#loading{
+  display:none; 
+  text-align:center; 
+  margin-top:2rem;
 }
 
 #container-main {
@@ -48,15 +63,15 @@ label[for="citys"] {
 #container-current, #container-forecast {
   display: flex;
   flex-direction: row;
-  margin: 5% 5% 0;
+  margin: 2% 5%;
   max-width: 100%;
   height: 100%;
   align-content: stretch;
-  gap: 10px;
+  gap: 15px;
 }
 
 .sectionbox {
-  background-color: yellow;
+  background-color: rgba(138, 190, 185,0.7);
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -71,18 +86,40 @@ label[for="citys"] {
 }
 
 .forecast-cards{
-    background-color: orange;
+    background-color: #305669;
     color: white;
     height: 100%;
+    width: 100%;
     padding: 3%;
     border-radius: 6px;
+    text-align:center;
+}
+
+.forecast-cards>h2{
+  font-size: 1rem;
+}
+
+.forecast-cards>h3{
+  font-size: 1rem;
 }
 
 footer {
-  height: 20px;
   width: 100%;
   display: flex;
   justify-content: center;
+  padding: 10px;
+}
+
+@media (max-width: 800px) {
+#container-forecast{
+    justify-content: space-evenly;
+    flex-wrap: wrap
+}
+
+.forecast-cards{
+    height: auto;
+}
+
 }
 
 @media (max-width: 600px) {
