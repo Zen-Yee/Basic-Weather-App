@@ -42,7 +42,7 @@ label[for="citys"] {
   font-size: 1rem;
   cursor: pointer;
   transition: border-color 0.3s;
-  height: 20px;
+  height: 50px;
 }
 
 #container-current, #container-forecast {
@@ -52,12 +52,12 @@ label[for="citys"] {
   max-width: 100%;
   height: 100%;
   align-content: stretch;
-  column-gap: 10px;
+  gap: 10px;
 }
 
 .sectionbox {
   background-color: yellow;
-  border-radius: 20pt;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -67,13 +67,15 @@ label[for="citys"] {
 }
 
 #container-forecast{
-    justify-content: space-between;;
+    justify-content: space-between;
 }
 
 .forecast-cards{
     background-color: orange;
     color: white;
     height: 100%;
+    padding: 3%;
+    border-radius: 6px;
 }
 
 footer {
@@ -92,10 +94,9 @@ footer {
 
     .sectionbox{
         height: auto;
-        min-height: 100dvh;
     }
 
-    #container-current, .forecast-cards{
+    #container-current, #container-forecast{
         flex-direction: column;
     }
 
