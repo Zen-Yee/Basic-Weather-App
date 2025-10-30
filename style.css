@@ -26,6 +26,8 @@ h1{
   display:none; 
   text-align:center; 
   margin-top:2rem;
+  font-size: 2rem;
+  color: white;
 }
 
 #container-main {

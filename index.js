@@ -34,8 +34,15 @@ async function getWeather(citySelected){
 
   document.body.style.pointerEvents = "none"; // prevent user actions during load (optional)
 
+  const loaderTimer = setTimeout(() => {
+    loader.querySelector("p").innerHTML = "Please be patience, everyone takes time to wake up after a deep sleep, so do the server! =)";
+  }, 5000);
+
   try{
     const res = await fetch(`https://basic-weather-app-gtst.onrender.com/proxy/forecast.json?q=${citySelected}&days=7&aqi=no&alerts=no`);
+
+    // Fetch completed, clear the timer so text update doesn't trigger
+    clearTimeout(loaderTimer);
 
     if (!res.ok) {
       throw new Error(`HTTP error! Status: ${res.status}`);
