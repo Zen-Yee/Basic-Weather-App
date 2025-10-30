@@ -26,12 +26,9 @@ weather-app/
 ├── index.html              # Main HTML file
 ├── style.css               # Styling and responsive layout
 ├── index.js                # Core JavaScript (fetch & DOM updates)
-│
-├── proxy/                  # Backend proxy to handle API requests
-│   ├── server.js           # Express server file
-│   └── .env                # Environment variables (API key, port)
-│
-├── assets/                  # Backend proxy to handle API requests
+├── server.js               # Backend proxy to handle API requests
+├──.env                     # Environment variables (API key, port)
+├── assets/                 
 │
 └── README.md               # Project documentation
 ```
@@ -40,5 +37,4 @@ weather-app/
 [(Click here for live demo)](https://zen-yee.github.io/Basic-Weather-App/)
 
 ## 📸 Screenshots
-(ADD LATER)
-
+![Screenshot of Weather App](./assets/LiveDemoScreenshot.png)
