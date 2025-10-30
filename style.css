@@ -20,11 +20,11 @@ body {
 }
 
 #container-city-dropdown {
-  height: 20pt;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 5%;
 }
 
 label[for="citys"] {
