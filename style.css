@@ -84,17 +84,19 @@ label[for="citys"] {
 }
 
 #container-forecast{
-    justify-content: space-between;
+    flex-wrap: wrap; /* allow wrapping when needed */
+    justify-content: space-between; /* distribute space evenly */
 }
 
 .forecast-cards{
     background-color: #305669;
     color: white;
-    height: 100%;
-    width: 100%;
+    /* height: 100%;
+    /* width: 100%; */
     padding: 3%;
     border-radius: 6px;
     text-align:center;
+    flex: 1 1 calc((100% - (15px * (4 - 1))) / 4);
 }
 
 .forecast-cards>h2{
@@ -139,6 +141,11 @@ footer {
         flex-direction: column;
     }
 
+    .forecast-cards {
+      width: 100%
+      }
+  
+
     #container-city-dropdown {
       flex-direction: column;    /* stack vertically */
       align-items: flex-start;   /* align to left */
@@ -161,9 +168,9 @@ footer {
       height: auto;
     }
       
-   #container-forecast{
-        flex-wrap: wrap;
-       justify-content: center;
-    }
+  .forecast-cards {
+    flex: 1 1 calc((100% - (15px * (3 - 1))) / 3);
+  }
+
   }
 
