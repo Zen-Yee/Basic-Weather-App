@@ -80,7 +80,7 @@ label[for="citys"] {
   justify-content: center;
   height: 100%;
   padding: 5%;
-  flex-grow: 1;
+  flex: 1;
 }
 
 #container-forecast{
