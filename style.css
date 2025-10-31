@@ -68,7 +68,7 @@ label[for="citys"] {
   margin: 2% 5%;
   max-width: 100%;
   height: 100%;
-  align-content: stretch;
+  align-items: stretch;
   gap: 15px;
 }
 
