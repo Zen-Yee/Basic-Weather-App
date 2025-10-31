@@ -164,6 +164,7 @@ footer {
    #container-forecast{
         flex-wrap: wrap;
        justify-content: space-evenly;
+       padding: auto;
     }
   }
 
